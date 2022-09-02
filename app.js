@@ -19,8 +19,21 @@ const displayCategories =(categories) =>{
     sortedCategory.forEach(category=> {
         const categoryContainer = document.getElementById('category-container');
         const spanElement = document.createElement('button');
-        spanElement.classList.add('btn','mx-2');
+        spanElement.classList.add('btn','mx-1');
         spanElement.innerText = `${category}`;
         categoryContainer.appendChild(spanElement);
     });
 };
+document.getElementById('category-container').addEventListener('click',function(event){
+    console.log(event.target.innerText);
+    event.target.classList.add('btn-primary');
+    fetch('https://openapi.programming-hero.com/api/news/categories')
+        .then(res => res.json())
+        .then(data => loadCategoryId(data.data.news_category,event.target.innerText ))
+});
+const loadCategoryId = (categories,selected) =>{
+    categories.forEach(category =>{
+        if(category.category_name===selected){
+        console.log(category);}
+    })
+}
