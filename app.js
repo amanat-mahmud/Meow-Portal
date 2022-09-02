@@ -31,6 +31,11 @@ document.getElementById('category-container').addEventListener('click', function
     // document.getElementById('home-btn').classList.remove('btn-primary');
     document.getElementsByClassName('btn-primary')[0].classList.remove('btn-primary');
     event.target.classList.add('btn-primary');
+    if (event.target.innerText === "Home") {
+        document.getElementById('topsection').innerHTML = ``;
+        return;
+
+    }
     fetch('https://openapi.programming-hero.com/api/news/categories')
         .then(res => res.json())
         .then(data => loadCategoryId(data.data.news_category, event.target.innerText))
@@ -42,15 +47,25 @@ const loadCategoryId = (categories, selected) => {
             const url = `https://openapi.programming-hero.com/api/news/category/${category.category_id}`
             fetch(url)
                 .then(res => res.json())
-                .then(data => displayCategories(data.data));
+                .then(data => displayCategories(data.data, selected));
         }
     });
 };
-const displayCategories = (categories) => {
+const displayCategories = (categories, selected) => {
     // sorted categories array based on total views
     // console.log(categories.length);
-    categories.sort((a, b) => b.total_view - a.total_view);
+    if (categories.length > 2) {
+        categories.sort((a, b) => b.total_view - a.total_view);
+    }
     categories.forEach(category => {
-        console.log(category);
+        // console.log(category);
+        // console.log(category.total_view);
+        document.getElementById('topsection').innerHTML = `<p class="p-4">${categories.length} items found in ${selected}</p>`;
+
+
+        //************** */ now in here will add all the found articles in the website
     });
+    if (categories.length == 0) {
+        document.getElementById('topsection').innerHTML = `<p class="p-4"> 0  items found in ${selected}</p>`;
+    }
 };
