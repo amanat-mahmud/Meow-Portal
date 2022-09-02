@@ -26,6 +26,10 @@ const addCategories = (categories) => {
 };
 document.getElementById('category-container').addEventListener('click', function (event) {
     // console.log(event.target.innerText);
+    // spinner load start
+
+    // document.getElementById('home-btn').classList.remove('btn-primary');
+    document.getElementsByClassName('btn-primary')[0].classList.remove('btn-primary');
     event.target.classList.add('btn-primary');
     fetch('https://openapi.programming-hero.com/api/news/categories')
         .then(res => res.json())
@@ -43,10 +47,8 @@ const loadCategoryId = (categories, selected) => {
     });
 };
 const displayCategories = (categories) => {
-    // console.log(categories);
-    // categories.forEach(category =>{
-    //     console.log(category);
-    // });
+    // sorted categories array based on total views
+    // console.log(categories.length);
     categories.sort((a, b) => b.total_view - a.total_view);
     categories.forEach(category => {
         console.log(category);
