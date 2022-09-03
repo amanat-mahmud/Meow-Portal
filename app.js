@@ -33,6 +33,8 @@ document.getElementById('category-container').addEventListener('click', function
     event.target.classList.add('btn-primary');
     if (event.target.innerText === "Home") {
         document.getElementById('topsection').innerHTML = ``;
+        const cardContainer = document.getElementById('card-contaner');
+        cardContainer.innerHTML = ``;
         return;
 
     }
@@ -57,15 +59,60 @@ const displayCategories = (categories, selected) => {
     if (categories.length > 2) {
         categories.sort((a, b) => b.total_view - a.total_view);
     }
+    const cardContainer = document.getElementById('card-contaner');
+    cardContainer.innerHTML = ``;
     categories.forEach(category => {
-        // console.log(category);
+        const newCategory = category;
+        console.log(newCategory);
         // console.log(category.total_view);
         document.getElementById('topsection').innerHTML = `<p class="p-4">${categories.length} items found in ${selected}</p>`;
-
-
-        //************** */ now in here will add all the found articles in the website
+        console.log(category);
+        const cardContainer = document.getElementById('card-contaner');
+        const cardDiv = document.createElement('div');
+        cardDiv.classList.add("card", "mb-3", "max-card-width");
+        // const rowDiv = document.createElement('div');
+        // rowDiv.classList.add("row", "g-0");
+        // const colImgDiv = document.createElement('div');
+        // colImgDiv.classList.add("col-md-4");
+        // colImgDiv.innerHTML = `          
+        // <img src="${category.author.img}" class="img-fluid rounded-start">`;
+        // const colDiv = document.createElement('div');
+        // colDiv.classList.add('col-md-8');
+        // cardBodyDiv = document.createElement('div');
+        // cardBodyDiv.classList.add('card-body');
+        cardDiv.innerHTML = `
+        <div class="row g-0 ">
+        <div class="col-md-4">
+            <img src="${category.image_url}" class="img-fluid rounded-start" alt="..." style="height: 250px; width:250px">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">${category.title}</h5>
+                <p class="card-text">${category.details.slice(0, 50)}...</p>
+                <div id="card-bottom" class="d-lg-flex  align-items-center mt-5 ">
+                    <div class="me-5 " id="author-div">
+                        <img src="${category.author.img}" alt="" srcset="" class="rounded-circle"
+                            style="height: 40px; width:40px;">
+                        <p>${category.author.name ? category.author.name : "Unknown"}</p>
+                    </div>
+                    <div class="mx-5 view">
+                        <i class="fa-regular fa-eye" id="views"> ${category.total_view}M</i>
+                    </div>
+                    <button class="btn btn-primary ms-5" onclick="loadModal('${category._id}')">Read More</button>
+                </div>
+            </div>
+        </div>
+    </div>`;
+        // document.getElementById('read-more').onClick = function () {
+        //     console.log("hi");
+        // }
+        cardContainer.appendChild(cardDiv);
     });
     if (categories.length == 0) {
         document.getElementById('topsection').innerHTML = `<p class="p-4"> No  items found in ${selected}</p>`;
     }
+    // stop loader
+};
+const loadModal = (a) => {
+    console.log(a);
 };
