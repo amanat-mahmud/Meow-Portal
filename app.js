@@ -81,7 +81,7 @@ const displayCategories = (categories, selected) => {
     cardContainer.innerHTML = ``;
     categories.forEach(category => {
         const newCategory = category;
-        console.log(newCategory);
+        // console.log(newCategory);
         // console.log(category.total_view);
         document.getElementById('topsection').innerHTML = `<p class="p-4">${categories.length} items found in ${selected}</p>`;
         // console.log(category);
