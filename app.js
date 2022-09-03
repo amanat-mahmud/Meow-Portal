@@ -7,6 +7,7 @@ const loadCategories = () => {
 }
 // function call
 loadCategories();
+// display categories on the top
 const addCategories = (categories) => {
     // will store sorted categories array
     const sortedCategory = [];
@@ -24,6 +25,8 @@ const addCategories = (categories) => {
         categoryContainer.appendChild(spanElement);
     });
 };
+// if isLoaded === false meaning page contents are not loaded hence show spinner
+// isLoaded for spinner 
 const isLoaded = (flag) => {
     const spinner = document.getElementById('spinner');
     if (flag === false) {
@@ -33,13 +36,16 @@ const isLoaded = (flag) => {
         spinner.classList.add('d-none');
     }
 };
+// delegated the event 
 document.getElementById('category-container').addEventListener('click', function (event) {
     // console.log(event.target.innerText);
     // spinner load start
     isLoaded(false);
     // document.getElementById('home-btn').classList.remove('btn-primary');
+    // this code is used to fix double selection of navbar suppose arts is selected when click on culture it shows data of culture but also keeps the art as btn-primary but only selected category can have btn-primary
     document.getElementsByClassName('btn-primary')[0].classList.remove('btn-primary');
     event.target.classList.add('btn-primary');
+    // if category is home then show no data
     if (event.target.innerText === "Home") {
         document.getElementById('topsection').innerHTML = ``;
         const cardContainer = document.getElementById('card-contaner');
@@ -52,6 +58,7 @@ document.getElementById('category-container').addEventListener('click', function
         .then(res => res.json())
         .then(data => loadCategoryId(data.data.news_category, event.target.innerText))
 });
+// using this function will show the articles on card
 const loadCategoryId = (categories, selected) => {
     // isLoaded(true);
     categories.forEach(category => {
@@ -77,7 +84,7 @@ const displayCategories = (categories, selected) => {
         console.log(newCategory);
         // console.log(category.total_view);
         document.getElementById('topsection').innerHTML = `<p class="p-4">${categories.length} items found in ${selected}</p>`;
-        console.log(category);
+        // console.log(category);
         const cardContainer = document.getElementById('card-contaner');
         const cardDiv = document.createElement('div');
         cardDiv.classList.add("card", "mb-3", "max-card-width");
@@ -119,21 +126,23 @@ const displayCategories = (categories, selected) => {
         // }
         cardContainer.appendChild(cardDiv);
     });
+    // if no articles found 
     if (categories.length == 0) {
         document.getElementById('topsection').innerHTML = `<p class="p-4"> No  items found in ${selected}</p>`;
     }
     // stop loader
     isLoaded(true);
 };
+// used to load article data for modal
 const loadModal = (id) => {
     const url = `https://openapi.programming-hero.com/api/news/${id}`;
     fetch(url)
         .then(res => res.json())
         .then(data => displayModal(data.data));
 };
-
+// used to display required data on modal
 const displayModal = (datas) => {
-    console.log(datas);
+    // console.log(datas);
     datas.forEach(data => {
         document.getElementById('exampleModalLabel').innerText = `
         ${data.title}
