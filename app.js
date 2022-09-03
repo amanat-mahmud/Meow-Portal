@@ -24,10 +24,19 @@ const addCategories = (categories) => {
         categoryContainer.appendChild(spanElement);
     });
 };
+const isLoaded = (flag) => {
+    const spinner = document.getElementById('spinner');
+    if (flag === false) {
+        spinner.classList.remove('d-none');
+    }
+    else {
+        spinner.classList.add('d-none');
+    }
+};
 document.getElementById('category-container').addEventListener('click', function (event) {
     // console.log(event.target.innerText);
     // spinner load start
-
+    isLoaded(false);
     // document.getElementById('home-btn').classList.remove('btn-primary');
     document.getElementsByClassName('btn-primary')[0].classList.remove('btn-primary');
     event.target.classList.add('btn-primary');
@@ -35,6 +44,7 @@ document.getElementById('category-container').addEventListener('click', function
         document.getElementById('topsection').innerHTML = ``;
         const cardContainer = document.getElementById('card-contaner');
         cardContainer.innerHTML = ``;
+        isLoaded(true);
         return;
 
     }
@@ -43,6 +53,7 @@ document.getElementById('category-container').addEventListener('click', function
         .then(data => loadCategoryId(data.data.news_category, event.target.innerText))
 });
 const loadCategoryId = (categories, selected) => {
+    // isLoaded(true);
     categories.forEach(category => {
         if (category.category_name === selected) {
             // console.log(category.category_id, category.category_name);
@@ -112,6 +123,7 @@ const displayCategories = (categories, selected) => {
         document.getElementById('topsection').innerHTML = `<p class="p-4"> No  items found in ${selected}</p>`;
     }
     // stop loader
+    isLoaded(true);
 };
 const loadModal = (id) => {
     const url = `https://openapi.programming-hero.com/api/news/${id}`;
@@ -131,5 +143,4 @@ const displayModal = (datas) => {
         <p>${data.details}</p>
         `;
     });
-
 }

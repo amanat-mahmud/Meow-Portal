@@ -1,3 +1,8 @@
+#spinner {
+    position: relative;
+    top: 14rem;
+    left: 30rem;
+}
 .max-card-width {
     max-width: 750px;
 }
@@ -7,6 +12,25 @@
 }
 
 @media only screen and (max-width:540px) {
+    .container-fluid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .nav-item {
+        margin-right: 1rem;
+    }
+
+    #category-container {
+        display: grid;
+    }
+
+
     #card-bottom {
         margin-left: 15%;
     }
