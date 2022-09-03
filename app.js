@@ -83,7 +83,7 @@ const displayCategories = (categories, selected) => {
         cardDiv.innerHTML = `
         <div class="row g-0 ">
         <div class="col-md-4">
-            <img src="${category.image_url}" class="img-fluid rounded-start" alt="..." style="height: 250px; width:250px">
+            <img src="${category.image_url}" class="img-fluid rounded-start" alt="..." style="height: 250px; width:250px;">
         </div>
         <div class="col-md-8">
             <div class="card-body">
@@ -98,7 +98,7 @@ const displayCategories = (categories, selected) => {
                     <div class="mx-5 view">
                         <i class="fa-regular fa-eye" id="views"> ${category.total_view}M</i>
                     </div>
-                    <button class="btn btn-primary ms-5" onclick="loadModal('${category._id}')">Read More</button>
+                    <button type="button" class="btn btn-primary ms-5" onclick="loadModal('${category._id}')" data-bs-toggle="modal" data-bs-target="#exampleModal">Read More</button>
                 </div>
             </div>
         </div>
@@ -113,6 +113,23 @@ const displayCategories = (categories, selected) => {
     }
     // stop loader
 };
-const loadModal = (a) => {
-    console.log(a);
+const loadModal = (id) => {
+    const url = `https://openapi.programming-hero.com/api/news/${id}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayModal(data.data));
 };
+
+const displayModal = (datas) => {
+    console.log(datas);
+    datas.forEach(data => {
+        document.getElementById('exampleModalLabel').innerText = `
+        ${data.title}
+        `;
+        document.getElementById('modal-body-inner').innerHTML = `
+        <img src="${data.image_url}" class="img-fluid" >
+        <p>${data.details}</p>
+        `;
+    });
+
+}
