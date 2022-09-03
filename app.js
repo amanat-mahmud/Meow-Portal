@@ -66,6 +66,6 @@ const displayCategories = (categories, selected) => {
         //************** */ now in here will add all the found articles in the website
     });
     if (categories.length == 0) {
-        document.getElementById('topsection').innerHTML = `<p class="p-4"> 0  items found in ${selected}</p>`;
+        document.getElementById('topsection').innerHTML = `<p class="p-4"> No  items found in ${selected}</p>`;
     }
 };
