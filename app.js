@@ -141,6 +141,7 @@ const displayModal = (datas) => {
         document.getElementById('modal-body-inner').innerHTML = `
         <img src="${data.image_url}" class="img-fluid" >
         <p>${data.details}</p>
+        <h4>Published: ${data.author.published_date}</h4>
         `;
     });
 }

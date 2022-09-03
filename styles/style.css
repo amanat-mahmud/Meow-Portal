@@ -3,6 +3,7 @@
     top: 14rem;
     left: 30rem;
 }
+
 .max-card-width {
     max-width: 750px;
 }
@@ -12,10 +13,6 @@
 }
 
 @media only screen and (max-width:540px) {
-    .container-fluid {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-    }
 
     .navbar-nav {
         display: flex;
